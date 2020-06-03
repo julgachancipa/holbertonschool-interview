@@ -1,20 +1,18 @@
 #!/usr/bin/python3
 """Log parsing"""
-
 import signal
 import sys
 
 
+def signal_handling(signum, frame):
+    """signal handling"""
+    print('File size: {}'.format(sum_file_size))
+    for key, value in status_code.items():
+        if value != 0:
+            print('{}: {}'.format(key, value))
+
+
 if __name__ == '__main__':
-
-    def signal_handling(signum, frame):
-        """signal handling"""
-        print('File size: {}'.format(sum_file_size))
-        for key, value in status_code.items():
-            if value != 0:
-                print('{}: {}'.format(key, value))
-
-
     sum_file_size = 0
     status_code = {200: 0,
                    301: 0,
@@ -36,8 +34,13 @@ if __name__ == '__main__':
         sum_file_size += int(file_size)
         i += 1
         if i % 10 == 0:
-            terminate = False
             print('File size: {}'.format(sum_file_size))
             for key, value in status_code.items():
                 if value != 0:
                     print('{}: {}'.format(key, value))
+
+    if i % 10 != 0:
+        print('File size: {}'.format(sum_file_size))
+        for key, value in status_code.items():
+            if value != 0:
+                print('{}: {}'.format(key, value))
