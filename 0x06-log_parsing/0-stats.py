@@ -22,9 +22,9 @@ if __name__ == '__main__':
             if len(args) > 2:
                 status_line = int(args[-2])
                 file_size = args[-1]
+                sum_file_size += int(file_size)
                 if status_line in status_code:
                     status_code[status_line] += 1
-                    sum_file_size += int(file_size)
                     i += 1
                     if i % 10 == 0:
                         print('File size: {}'.format(sum_file_size))
