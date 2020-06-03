@@ -19,18 +19,17 @@ if __name__ == '__main__':
         i = 0
         for line in sys.stdin:
             args = line.split()
-            if len(args) == 9:
-                status_line = int(args[-2])
-                file_size = args[-1]
-                if status_line in status_code:
-                    status_code[status_line] += 1
-                    sum_file_size += int(file_size)
-                    i += 1
-                if i % 10 == 0:
-                    print('File size: {}'.format(sum_file_size))
-                    for key, value in sorted(status_code.items()):
-                        if value != 0:
-                            print('{}: {}'.format(key, value))
+            status_line = int(args[-2])
+            file_size = args[-1]
+            if status_line in status_code:
+                status_code[status_line] += 1
+                sum_file_size += int(file_size)
+                i += 1
+            if i % 10 == 0:
+                print('File size: {}'.format(sum_file_size))
+                for key, value in sorted(status_code.items()):
+                    if value != 0:
+                        print('{}: {}'.format(key, value))
 
         print('File size: {}'.format(sum_file_size))
         for key, value in sorted(status_code.items()):
