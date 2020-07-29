@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-N queens
+N Queens
 """
 import sys
 
@@ -17,51 +17,72 @@ if N < 4:
     print('N must be at least 4')
     exit(1)
 
-ld = [0] * N * 10
-rd = [0] * N * 10
-cl = [0] * N * 10
+k = 1
 
 
-def getSolution(board):
+def printSolution(board):
     """
-    Print the indexes in the board
-    :param board: board
-    :return: nothing
+    print Solution
     """
-    solution = []
-    for i in range(N):
-        for j in range(N):
-            if board[i][j]:
-                solution.append([i, j])
-    print(solution)
+    queens = []
+    global k
+    k = k + 1
+    for i in range(n):
+        for j in range(n):
+            if board[i][j] == 1:
+                queens.append([i, j])
+    print(queens)
+
+
+def isSafe(board, row, col):
+    """
+    isSafe
+    """
+    for i in range(col):
+        if board[row][i]:
+            return False
+    i = row
+    j = col
+    while i >= 0 and j >= 0:
+        if board[i][j]:
+            return False
+        i -= 1
+        j -= 1
+    i = row
+    j = col
+    while j >= 0 and i < n:
+        if board[i][j]:
+            return False
+        i = i + 1
+        j = j - 1
+    return True
 
 
 def solveNQUtil(board, col):
     """
-    Solves the N queens problem
-    :param board:
-    :param col:
-    :return:
+    solve NQtil
     """
-    if col >= N:
-        getSolution(board)
-        return False
-
-    for i in range(N):
-        if ((ld[i - col + N - 1] != 1 and
-             rd[i + col] != 1) and cl[i] != 1):
-
+    if col == n:
+        printSolution(board)
+        return True
+    res = False
+    for i in range(n):
+        if isSafe(board, i, col):
             board[i][col] = 1
-            ld[i - col + N - 1] = rd[i + col] = cl[i] = 1
-
-            if solveNQUtil(board, col + 1):
-                return True
-
-            board[i][col] = 0  # BACKTRACK
-            ld[i - col + N - 1] = rd[i + col] = cl[i] = 0
-
-    return False
+            res = solveNQUtil(board, col + 1) or res
+            board[i][col] = 0
+    return res
 
 
-board = [[0 for j in range(N)] for i in range(N)]
-solveNQUtil(board, 0)
+def solveNQ():
+    """
+    solve NQ
+    """
+    board = [[0 for j in range(n)] for i in range(n)]
+    if solveNQUtil(board, 0) is False:
+        pass
+        return
+    return
+
+
+solveNQ()
