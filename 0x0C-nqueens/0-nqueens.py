@@ -27,8 +27,8 @@ def printSolution(board):
     queens = []
     global k
     k = k + 1
-    for i in range(n):
-        for j in range(n):
+    for i in range(N):
+        for j in range(N):
             if board[i][j] == 1:
                 queens.append([i, j])
     print(queens)
@@ -50,7 +50,7 @@ def isSafe(board, row, col):
         j -= 1
     i = row
     j = col
-    while j >= 0 and i < n:
+    while j >= 0 and i < N:
         if board[i][j]:
             return False
         i = i + 1
@@ -62,11 +62,11 @@ def solveNQUtil(board, col):
     """
     solve NQtil
     """
-    if col == n:
+    if col == N:
         printSolution(board)
         return True
     res = False
-    for i in range(n):
+    for i in range(N):
         if isSafe(board, i, col):
             board[i][col] = 1
             res = solveNQUtil(board, col + 1) or res
@@ -78,7 +78,7 @@ def solveNQ():
     """
     solve NQ
     """
-    board = [[0 for j in range(n)] for i in range(n)]
+    board = [[0 for j in range(N)] for i in range(N)]
     if solveNQUtil(board, 0) is False:
         pass
         return
