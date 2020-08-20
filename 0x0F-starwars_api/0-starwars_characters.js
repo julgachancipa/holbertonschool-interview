@@ -1,6 +1,6 @@
 #!/usr/bin/node
 
-const req = require('request');
+const request = require('request');
 
 try {
   const movieId = process.argv[2];
@@ -12,7 +12,7 @@ try {
       const characters = JSON.parse(body).characters;
       for (const character of characters) {
         const res = await new Promise((resolve, reject) => {
-          req(character, (err, res, html) => {
+          request(character, (err, res, html) => {
             if (err) {
               reject(err);
             } else {
